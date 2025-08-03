@@ -1,27 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model owners {
+  id         Int     @id
+  owner_name String? @db.VarChar(225)
+}
+
+model products {
+  product_id    Int     @id
+  product_name  String? @db.VarChar(85)
+  product_brand String? @db.VarChar(45)
+  created_date  String? @db.VarChar(45)
+}
+
 model products_owners {
-  products_id Int
-  owners_id   Int
-
-  product Product @relation(fields: [products_id], references: [product_id])
-  owner   Owner   @relation(fields: [owners_id], references: [id])
-
-  @@id([products_id, owners_id])
-  @@map("products_owners")
-}
-
-model Product {
-  product_id    Int              @id
-  product_name  String
-  product_brand String
-  owners        products_owners[]
-
-  @@map("products")
-}
-
-model Owner {
-  id            Int              @id
-  owner_name    String
-  products      products_owners[]
-
-  @@map("owners")
+  product_id Int     @id
+  owners_id  String? @db.VarChar(45)
 }
